@@ -172,3 +172,8 @@ void AWeapon::DeactivateCollision()
 {
 	CombatCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
+
+void AWeapon::PlayFireMontage()
+{
+	SkeletalMesh->PlayAnimation(FireMontage, false);
+}

@@ -590,7 +590,7 @@ void APlayerCharacter::UnEquipWeapon()
 
 		if (UnEquipAnimMonatage)
 			PlayAnimMontage(UnEquipAnimMonatage, 1, NAME_None);
-
+		
 		IsEquipping = true;
 
 		if (!IsSwitched)
@@ -748,7 +748,7 @@ void APlayerCharacter::Fire()
 		BulletFire = true;
 		if(RightHandEquippedWeapon->WeaponKind == EWeaponKind::EWk_HandGun) PlayAnimMontage(FireHandGunAnimMontage, 1, NAME_None);
 		if(RightHandEquippedWeapon->WeaponKind == EWeaponKind::EWK_AssaultRifle) PlayAnimMontage(FireAnimMontage, 1, NAME_None);
-		PlayAnimMontage(RightHandEquippedWeapon->FireMontage, 1, NAME_None);
+		RightHandEquippedWeapon->PlayFireMontage();
 		GetWorld()->GetTimerManager().SetTimer(FireDelay, this, &APlayerCharacter::Fire, 0.1f, false);
 		LoadedBullet--;
 	}
@@ -774,7 +774,7 @@ void APlayerCharacter::ReleaseFire()
 
 void APlayerCharacter::Reload()
 {
-	if (!RightHandEquippedWeapon)
+	if (!RightHandEquippedWeapon || IsRifleReloading)
 		return;
 
 	if ((LoadedBullet == WeaponMaxBullet || InventoryBulletCount == 0)
@@ -785,7 +785,15 @@ void APlayerCharacter::Reload()
 	ReleaseAiming();
 	BulletFire = false;
 	IsRifleReloading = true;
-	PlayAnimMontage(RifleReloadingAnimMontage, 1, NAME_None);
+	if (RightHandEquippedWeapon->WeaponKind == EWeaponKind::EWK_AssaultRifle)
+	{
+		PlayAnimMontage(RifleReloadingAnimMontage, 1, NAME_None);
+	}
+	else if (RightHandEquippedWeapon->WeaponKind == EWeaponKind::EWk_HandGun)
+	{
+		PlayAnimMontage(HandGunReloadingAnimMontage, 1, NAME_None);
+	}
+
 	GetWorld()->GetTimerManager().SetTimer(ReloadDelay, this, &APlayerCharacter::FinishReload, 2.5f, false);
 }
 

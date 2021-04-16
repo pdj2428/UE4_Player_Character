@@ -203,6 +203,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
 	UAnimMontage* RifleReloadingAnimMontage;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+	UAnimMontage* HandGunReloadingAnimMontage;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool IsRifleReloading;
 

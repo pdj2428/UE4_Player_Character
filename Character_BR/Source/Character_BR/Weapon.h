@@ -77,6 +77,8 @@ public:
 	void SetWeaponRightHand(class APlayerCharacter* Char);
 	void SetWeaponBack(class APlayerCharacter* Char, int Number);
 
+	void PlayFireMontage();
+
 	FORCEINLINE void SetWeaponState(EWeaponState State) { WeaponState = State; }
 	FORCEINLINE EWeaponState GetWaponState() { return WeaponState; }
 
